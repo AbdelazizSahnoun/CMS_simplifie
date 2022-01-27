@@ -1,0 +1,210 @@
+#%RAML 1.0
+title: Services d'informations sur les installations à Montréal
+baseUri: http://localhost:5000
+version: 1
+protocols: [ HTTP ] 
+mediaType: application/json
+types:
+  Installations:
+    properties:
+      ID:
+        type: integer
+        required: true
+      Nom:
+        type: string
+        required: true
+      Type:
+        type: number
+        required: true
+
+  Glissade:
+    properties:
+      ID:
+        type: integer
+        required: true
+      Nom:
+        type: string
+        required: true
+      Ouvert:
+        type: number
+        required: true
+      Deblaye:
+        type: number
+        required: true  
+      Condition:
+        type: string
+        required:true 
+
+  Patinoire:
+    properties:
+      ID:
+        type: integer
+        required: true
+      Nom:
+        type: string
+        required: true  
+      Arrondissement:
+        type: string
+        required: true
+      Conditions:
+        type: Condition[]
+        required: true  
+
+  Condition:
+    properties:  
+        Date_heure:
+            type: string
+            required: true
+        Ouvert:
+            type: number
+            required: true
+        Deblaye:
+            type: number
+            required: true  
+        Arrose:
+            type: number
+            required: true    
+        Resurface:
+            type: number
+            required: true                         
+
+/api:
+    /installations:
+        /arrondissement:
+            /{nom_arrondissement}:
+                get:
+                    description: Fournit la liste des installations qui se trouve dans l'arrondissement spécifié.
+                    responses:
+                        200:
+                            description: Liste des installation dans l'arrondissement spécifié.
+                            body: 
+                                      application/json:
+                                        type: Installations[]
+                                        example:
+                                                ­ 
+                                                ID=114
+                                                Nom='Parc Ladauversière'
+                                                Type='Piscine extérieure',
+                                                ID=118
+                                                Nom='Parc Delorme'
+                                                Type='Piscine extérieure'
+
+                                            
+
+                        404:
+                            description: Le nom de cette arrondissement n'existe pas.             
+        /glissades:
+                /{id}:
+                    uriParameters:
+                        id:
+                            description: Identifiant unique de la glissade.
+                            type: integer
+                    get: 
+                        description: Fournit la liste des informations disponible sur une glissade.
+                        responses: 
+                                        200:
+                                            description: Les informations sur la glissade spécifié.
+                                            body: 
+                                                application/json:
+                                                    type: Glissade
+                                                    example: 
+                                                            ID=6
+                                                            Nom='Aire de Glissade Don Basco'
+                                                            Ouvert=1
+                                                            Deblaye=0
+                                                            Condition='Propre'
+                                        404:
+                                            description: L'identifiant de cette glisade n'existe pas.         
+                    put:
+                        description: Modifie les informations d'une glissade.
+                        body:
+                            application/json:
+                            type: Glissade
+                        responses: 
+                                        200:
+                                            description: La glissade a bien été modifié.
+                                            body: 
+                                                application/json:
+                                                    type: Glissade
+                                        404:
+                                            description: L'identifiant de cette glisade n'existe pas.
+                    delete:
+                        description: Supprime complétement les informations sur la glissade.
+                        responses:
+                            200:
+                                description: La glissade a bien été supprimé.
+                            404:
+                                description: L'identifiant de cette glisade n'existe pas.    
+
+        /recentes: 
+                get:
+                        description: Fournit la liste des installations dont l'état a été changé en 2021.
+                        responses:
+                            200:
+                                description: La liste des installations dont l'état a été changé en 2021.
+                                body: 
+                                        application/json:
+                                            type: Patinoire[]
+                                            example:
+                                                    ­ 
+                                                    ID=114
+                                                    Nom='Parc Ladauversière'
+                                                    Arrondissement='Ski',
+                                                    Ouvert=0
+                                                    Deblaye=1
+                                                    Arrose=1
+                                                    Resurface=0
+
+                                                
+
+                            404:
+                                description: Aucun installations a vu son état changé en 2021. 
+                /xml:
+                        get:
+                                description: Fournit la liste des installations dont l'état a été changé en 2021 en xml.
+                                responses:
+                                    200:
+                                        description: La liste des installations dont l'état a été changé en 2021 en xml.
+                                        body: 
+                                                text/xml:
+                                                    example: |    ­ 
+                                                        <Installations>
+                                                        <Installation>
+                                                        <ID>156</ID>
+                                                        <Nom>Aire de glissade ,Don-Bosco ()</Nom>
+                                                        <Arrondissement>Rivière-des-Prairies - Pointe-aux-Trembles</Arrondissement>
+                                                        <Conditions>
+                                                        <condition><Date_de_mise_a_jour>2021-01-04 08:00:09</Date_de_mise_a_jour>
+                                                        <Ouvert>0</Ouvert>
+                                                        <Deblaye>0</Deblaye>
+                                                        <Arrose>0</Arrose>
+                                                        <Resurface>0</Resurface>
+                                                        </condition>
+                                                        </Conditions>
+
+                    
+
+                                                        
+
+                                    404:
+                                        description: Aucun installations a vu son état changé en 2021.   
+
+                /csv:
+                        get:
+                                description: Fournit la liste des installations dont l'état a été changé en 2021 en csv.
+                                responses:
+                                    200:
+                                        description: La liste des installations dont l'état a été changé en 2021 en csv.
+                                        body: 
+                                                text/csv:
+                                                    example: |    ­ 
+                                                       ID,Nom,Arrondissement,Date_de_mise_a_jour,Ouvert,Deblaye,Arrose,Resurface
+                                                       156,Aire de glissade Don-Bosco (),Rivière-des-Prairies - Pointe-aux-Trembles,2021-01-04 08:00:09,0,0,0,0
+                                                        
+
+                                    404:
+                                        description: Aucun installations a vu son état changé en 2021.   
+                    
+
+                                                
+            

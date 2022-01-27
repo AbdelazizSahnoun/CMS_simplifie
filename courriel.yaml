@@ -1,0 +1,14 @@
+Destinataire:
+  name: "Martin Devloper"
+  source_address: ""
+  source_adress_mdp: ""
+  destination_address: ""
+  body: "Liste des nouvelles installations de la ville de montréal :\n\n"
+  subject: "Nouvelle installations dans Montréal"
+
+Twitter:
+  bearer_token: ""
+  consumer_key: ""
+  consumer_secret: ""
+  access_token: ""
+  access_token_secret: ""
