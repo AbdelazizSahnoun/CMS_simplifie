@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Modifier un article</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/form_style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="/js/script_admin_modifier_article.js"></script>
+</head>
+
+<body>
+    <span class="erreur">{{get_flashed_messages()[0]}}</span>
+
+    {% set post_route = '/admin/modifier_articles/' ~ article[0][0] ~ '/post_article' %}
+
+
+
+
+
+    <div class="div-background">
+        <div class="container">
+            <h3> Modifier un article</h3>
+            <form id="form-modifier-article" action={{post_route}} method="post">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input class="form-control form-control-sm" id="titre" name="titre" type="text" maxlength=100
+                        value={{ article[0][1] }}>
+                    <span class="erreur hidden" id="titre-empty-error">Le titre ne peut pas être vide.</span>
+                    <span class="erreur hidden" id="titre-toolong-error">Le titre ne doit pas dépasser 100
+                        caractères.</span>
+                </div>
+                <div class="form-group">
+                    <label for="identifiant">Identifiant</label>
+                    <input class="form-control form-control-sm" id="identifiant" name="identifiant" type="text"
+                        maxlength=50 value={{ article[0][2] }} readonly>
+                </div>
+                <div class="form-group">
+                    <label for="auteur">Auteur</label>
+                    <input class="form-control form-control-sm" id="auteur" name="auteur" type="text" maxlength=100
+                        value={{ article[0][3] }} readonly>
+                </div>
+                <div class="form-group">
+                    <label for="date_publication">Date de publication</label>
+                    <input class="form-control form-control-sm" id="date_publication" name="date_publication"
+                        type="text" value={{ article[0][4] }} readonly>
+                </div>
+                <div class="form-group">
+                    <label for="paragraphe">Paragraphe</label>
+                    <textarea class="form-control form-control-sm" id="paragraphe" name="paragraphe"
+                        type="text"> {{ article[0][5] }} </textarea>
+                    <span class="erreur hidden" id="paragraphe-empty-error">Le paragraphe ne peut pas être vide.</span>
+                    <span class="erreur hidden" id="paragraphe-toolong-error">Le paragraphe ne doit pas dépasser 500
+                        caractères.</span>
+                </div>
+                <button class="btn btn-primary pull-right" type="button"
+                    id="button_submit_article_modification_form">Enregistrer les modifications
+                </button>
+            </form>
+            <form action="/admin-nouveau" method="get">
+                <button class="btn btn-primary pull-right">Créer un nouvel article</button>
+            </form>
+
+        </div>
+    </div>
+
+</body>

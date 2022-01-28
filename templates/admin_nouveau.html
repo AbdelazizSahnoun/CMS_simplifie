@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ajouter un nouvel article</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/form_style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="/js/script_admin_nouveau.js"></script>
+</head>
+
+<body>
+    <span class="erreur">{{get_flashed_messages()[0]}}</span>
+
+    <div class="div-background">
+        <div class="container">
+            <h3>Ajouter un article</h3>
+            <form id="form-ajouter-nouveau-article" action="/admin-nouveau/ajout/" method="post">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input class="form-control form-control-sm" id="titre" name="titre" type="text" maxlength=100
+                        placeholder="Le titre de l'article à ajouter">
+                    <span class="erreur hidden" id="titre-empty-error">Le titre ne peut pas être vide.</span>
+                    <span class="erreur hidden" id="titre-toolong-error">Le titre ne doit pas dépasser 100
+                        caractères.</span>
+                </div>
+                <div class="form-group">
+                    <label for="identifiant">Identifiant</label>
+                    <input class="form-control form-control-sm" id="identifiant" name="identifiant" type="text"
+                        maxlength=50 placeholder="L'identifiant de l'article à ajouter">
+                    <span class="erreur hidden" id="identifiant-empty-error">L'identifiant ne peut pas être vide.</span>
+                    <span class="erreur hidden" id="identifiant-toolong-error">L'identifiant ne doit pas dépasser 50
+                        caractères.</span>
+                </div>
+                <div class="form-group">
+                    <label for="auteur">Auteur</label>
+                    <input class="form-control form-control-sm" id="auteur" name="auteur" type="text" maxlength=100
+                        placeholder="L'auteur de l'article à ajouter">
+                    <span class="erreur hidden" id="auteur-empty-error">L'auteur ne peut pas être vide.</span>
+                    <span class="erreur hidden" id="auteur-toolong-error">L'auteur ne doit pas dépasser 100
+                        caractères.</span>
+                </div>
+                <div class="form-group">
+                    <label for="date_publication">Date de publication</label>
+                    <input class="form-control form-control-sm" id="date_publication" name="date_publication"
+                        type="text" placeholder="La date de publication de l'article à ajouter">
+                    <span class="erreur hidden" id="date_publication-empty-error">La date de publication ne peut pas
+                        être vide.</span>
+                    <span class="erreur hidden" id="date_publication-format-invalide-error">La date de publication doit
+                        au format suivant : AAAA-MM-JJ.</span>
+                    <span class="erreur hidden" id="date_publication-invalide-error">La date est invalide.</span>
+                </div>
+                <div class="form-group">
+                    <label for="paragraphe">Paragraphe</label>
+                    <textarea class="form-control form-control-sm" id="paragraphe" name="paragraphe" type="text"
+                        placeholder="Le paragraphe de l'article à ajouter"></textarea>
+                    <span class="erreur hidden" id="paragraphe-empty-error">Le paragraphe ne peut pas être vide.</span>
+                    <span class="erreu hidden" id="paragraphe-toolong-error">Le paragraphe ne doit pas dépasser 500
+                        caractères.</span>
+                    <small class="form-text text-muted">Le paragraphe est limité à 100 caractères.</small>
+                </div>
+                <button class="btn btn-primary pull-right" type="button"
+                    id="button_submit_article_modification_form">Enregistrer les modifications
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
