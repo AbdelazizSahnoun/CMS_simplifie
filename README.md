@@ -1,9 +1,7 @@
 # Description du projet :
 
 Le projet consiste à récupérer un ensemble de données provenant de la ville de Montréal et d'offrir des
-
 services à partir de ces données. Il s'agit de données ouvertes à propos d'installations pour faire des
-
 activités sportives.
 
 
